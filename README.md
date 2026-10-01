@@ -92,7 +92,7 @@ When a filing is actually made, the appropriate filing information can be record
 
 Evan Ketchum completed **The USPTO Basic Patent Training** on **May 27, 2026**.
 
-![USPTO Basic Patent Training Certificate](docs/certificates/uspto-basic-patent-training-2026-05-27.png)
+Certificate evidence record: [docs/certificates/CERTIFICATE-RECORD.md](docs/certificates/CERTIFICATE-RECORD.md)
 
 Certificate provenance and integrity information are recorded in [CERTIFICATE-RECORD.md](docs/certificates/CERTIFICATE-RECORD.md).
 
