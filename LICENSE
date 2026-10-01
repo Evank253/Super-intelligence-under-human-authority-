@@ -1,0 +1,51 @@
+KETCHUM HUMAN-AUTHORITY RESEARCH LICENSE v1.0
+
+Copyright © 2026 Evan Ketchum. All rights reserved except as expressly permitted below.
+
+1. PERMITTED USE
+
+You may:
+- view and read the repository;
+- fork the repository for private, non-commercial research and evaluation;
+- run the software and tests for private, non-commercial research and evaluation;
+- quote reasonable portions for commentary, criticism, academic discussion, or documentation, with attribution and a reference to the original repository.
+
+2. RESTRICTIONS
+
+Without prior written permission from Evan Ketchum, you may not:
+- commercially exploit the repository or its contents;
+- sell, sublicense, or transfer the repository or substantial portions of it;
+- publish or redistribute a substantially complete copy;
+- create and distribute a derivative implementation based substantially on this repository;
+- remove copyright, provenance, attribution, or integrity notices;
+- represent the work as your own;
+- use the work to claim authority, certification, verification, or endorsement by Evan Ketchum.
+
+3. THIRD-PARTY MATERIAL
+
+Third-party software, datasets, trademarks, documentation, and other material remain subject to their own applicable licenses and terms. Nothing in this license supersedes those terms.
+
+4. PATENTS
+
+No patent license is granted by this license. Any patent rights, if applicable, are reserved. A patent-pending or patent-granted status must not be inferred from this license or from the existence of this repository.
+
+5. PROVENANCE AND EVIDENCE
+
+Copies, forks, imports, and derivative evaluations must preserve material provenance and must not represent historical, experimental, unverified, or disputed claims as independently verified facts.
+
+6. NO WARRANTY
+
+The repository is provided for research and engineering purposes without warranty of any kind, to the maximum extent permitted by law.
+
+7. TERMINATION
+
+Permissions under this license terminate automatically if you materially violate its terms. Upon termination, further use must cease except where another applicable legal right independently permits the use.
+
+8. GOVERNING LAW
+
+This license is intended as a repository-specific copyright and research-use license. Applicable law governs where this text is insufficient or unenforceable.
+
+For permissions beyond this license, contact the copyright holder.
+
+Copyright holder:
+Evan Ketchum
