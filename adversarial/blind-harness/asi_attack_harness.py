@@ -7,7 +7,7 @@ against the gate implementation and records observed dispositions.
 import json
 from dataclasses import asdict, dataclass
 
-from verification.state-transitions.gates import (
+from verification.state_transitions.gates import (
     AuthorizationRejected,
     AuthorizationRequest,
     Claim,
