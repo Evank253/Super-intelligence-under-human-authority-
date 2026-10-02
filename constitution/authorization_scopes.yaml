@@ -1,0 +1,14 @@
+authorization_scopes:
+  - id: ENGINEERING_OPERATION
+    description: "Execution of explicitly authorized engineering operations."
+    self_escalation: false
+  - id: REPAIR_OPERATION
+    description: "Authorized source modification followed by mandatory re-execution and evidence capture."
+    self_escalation: false
+  - id: DEPLOYMENT_OPERATION
+    description: "Deployment of an artifact satisfying required verification and authorization gates."
+    self_escalation: false
+  - id: GOVERNANCE_CHANGE
+    description: "Changes to authority, governance, constitutional constraints, or authorization boundaries."
+    autonomous_execution: false
+    requires_human_authority: true
