@@ -1,0 +1,20 @@
+change_control:
+  normal_engineering_change:
+    allowed: true
+    required_path: ENGINEERING_LOOP
+  protected_boundary_change:
+    allowed_autonomously: false
+    required_path: GOVERNANCE_EVENT
+    required_authority: HUMAN
+  evidence_history:
+    mutable: false
+  constitutional_state:
+    self_modification: forbidden
+  required_transition_record:
+    - actor
+    - authorization_scope
+    - source_sha_before
+    - source_sha_after
+    - change_reason
+    - evidence_reference
+    - review_status
