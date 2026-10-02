@@ -1,0 +1,24 @@
+protected_boundaries:
+  protected:
+    - human_authority_model
+    - authority_hierarchy
+    - constitutional_invariants
+    - authorization_boundaries
+    - evidence_integrity_rules
+    - provenance_requirements
+    - independent_observer_requirements
+    - governance_escalation_rules
+    - historical_evidence
+  evolvable:
+    - models
+    - agents
+    - algorithms
+    - adapters
+    - applications
+    - capabilities
+    - deployment_mechanisms
+    - optimization_strategies
+    - testing_strategies
+    - user_interface
+    - performance
+    - system_composition
