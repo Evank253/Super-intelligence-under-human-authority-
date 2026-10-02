@@ -1,0 +1,16 @@
+governance_events:
+  trigger_conditions:
+    - authority_boundary_change
+    - constitutional_change
+    - authorization_scope_change
+    - safety_boundary_change
+    - evidence_integrity_rule_change
+    - provenance_rule_change
+    - independent_observer_requirement_change
+    - attempted_self_elevation
+    - attempted_self_authorization
+  required_disposition:
+    - create_governance_event
+    - preserve_original_state
+    - preserve_request_provenance
+    - escalate_to_human_authority
