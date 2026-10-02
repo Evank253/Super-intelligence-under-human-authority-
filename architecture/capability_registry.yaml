@@ -1,0 +1,5 @@
+schema_version: "M04.1"
+registry_type: "capability"
+
+# Intentionally empty until each capability has an explicit source and evidence state.
+capabilities: []
