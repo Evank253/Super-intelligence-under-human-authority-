@@ -1,0 +1,15 @@
+schema_version: "M04.1"
+registry_type: "evidence-state"
+
+states:
+  DECLARED: "Declared by documentation or metadata."
+  IMPLEMENTED: "Mechanism exists in inspectable source."
+  OBSERVED: "Behavior observed in an execution or evaluation."
+  VERIFIED: "Observed behavior passed defined verification criteria."
+  QUALIFIED: "Capability passed the governing qualification process."
+
+rules:
+  - "No direct DECLARED → VERIFIED transition."
+  - "No direct OBSERVED → QUALIFIED transition."
+  - "QUALIFIED does not imply AUTHORIZED."
+  - "Missing evidence means NOT MEASURED, not assumed."
