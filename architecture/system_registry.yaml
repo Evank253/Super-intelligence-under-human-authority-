@@ -1,0 +1,37 @@
+schema_version: "M04.1"
+registry_type: "system"
+
+systems:
+  - system_id: "SYS-KCN"
+    name: "KCN"
+    canonical_repository: "Evank253/KCN-SUPER-COGNITIVE-HUMAN-GOVERNED-INTELLIGENCE-ECOSYSTEM-"
+    default_branch: "copilot/kcn-super-cognitive-ecosystem"
+    authority_class: "human-governed"
+    lifecycle_state: "DECLARED"
+    evidence_state: "DECLARED"
+
+  - system_id: "SYS-MANIFEX"
+    name: "MANIFEX"
+    canonical_repository: "Evank253/MANIFEX"
+    default_branch: "Python-3"
+    authority_class: "human-governed"
+    lifecycle_state: "DECLARED"
+    evidence_state: "DECLARED"
+
+  - system_id: "SYS-KRONOS"
+    name: "Kronos Build & Evidence Lab"
+    canonical_repository: "AppDeploy:kronos-build-evidence-lab-hhwy79"
+    authority_class: "bounded-operational"
+    lifecycle_state: "IMPLEMENTED"
+    evidence_state: "IMPLEMENTED"
+    notes:
+      - "Controlled fixture infrastructure exists."
+      - "Arbitrary isolated execution remains unconnected and unqualified."
+
+  - system_id: "SYS-KSI-EI"
+    name: "KSI Emergent Intelligence"
+    canonical_repository: "Evank253/KSI-EMERGENT-INTELLIGENCE"
+    default_branch: "Python-3"
+    authority_class: "human-governed"
+    lifecycle_state: "IMPLEMENTED"
+    evidence_state: "IMPLEMENTED"
