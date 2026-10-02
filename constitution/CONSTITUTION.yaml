@@ -1,0 +1,10 @@
+constitution_id: KSH-CONSTITUTION-001
+version: "1.0.0"
+status: FROZEN
+root_invariant: "Systems may evolve in capability, intelligence, autonomy, composition, and engineering capacity, but no system may derive, assume, modify, or elevate its own authority. Human authority remains external to and superior to all system intelligence."
+authority_model: constitution/authority_model.yaml
+invariants: constitution/invariants.yaml
+authorization_scopes: constitution/authorization_scopes.yaml
+governance_events: constitution/governance_events.yaml
+protected_boundaries: constitution/protected_boundaries.yaml
+change_control: constitution/change_control.yaml
