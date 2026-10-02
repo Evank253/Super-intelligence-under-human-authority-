@@ -1,5 +1,99 @@
-schema_version: "M04.1"
+schema_version: "M04.2"
 registry_type: "capability"
+authority_source: "architecture-plane"
 
-# Intentionally empty until each capability has an explicit source and evidence state.
-capabilities: []
+# Registration rule:
+# A capability is registered only when an inspectable source artifact is identified.
+# Evidence state describes what the inspected artifacts support; it is not a qualification.
+
+capabilities:
+  - capability_id: "CAP-KCN-INTELLIGENCE-ANALYZE"
+    system_id: "SYS-KCN"
+    name: "Intelligence analysis request"
+    description: "Submit an analysis request through the KCN Intelligence API."
+    evidence_state: "IMPLEMENTED"
+    source_artifacts:
+      - repository: "Evank253/KCN-SUPER-COGNITIVE-HUMAN-GOVERNED-INTELLIGENCE-ECOSYSTEM-"
+        path: "intelligence/README.md"
+        artifact_sha: "0bb6d5b8922c18a453e523d057e34e6337565d21"
+        evidence: "Documents POST /api/v1/intelligence/analyze."
+      - repository: "Evank253/KCN-SUPER-COGNITIVE-HUMAN-GOVERNED-INTELLIGENCE-ECOSYSTEM-"
+        path: "backend/tests/test_intelligence.py"
+        artifact_sha: "0413f0e5184d4ba3c6892df54289af671eb385d1"
+        evidence: "Tests exercise the endpoint, result ID, status, module validation, and input validation."
+    interface:
+      protocol: "HTTP REST"
+      method: "POST"
+      path: "/api/v1/intelligence/analyze"
+    qualification_state: "NOT_QUALIFIED"
+
+  - capability_id: "CAP-KCN-VERIFICATION-RESULT-RETRIEVAL"
+    system_id: "SYS-KCN"
+    name: "Verification result retrieval"
+    description: "Retrieve a verification result for an intelligence output."
+    evidence_state: "IMPLEMENTED"
+    source_artifacts:
+      - repository: "Evank253/KCN-SUPER-COGNITIVE-HUMAN-GOVERNED-INTELLIGENCE-ECOSYSTEM-"
+        path: "verification/README.md"
+        artifact_sha: "cbe78628a80c00c38f2153aae0c9122331849fcf"
+        evidence: "Documents GET /api/v1/verification/results/{result_id}."
+      - repository: "Evank253/KCN-SUPER-COGNITIVE-HUMAN-GOVERNED-INTELLIGENCE-ECOSYSTEM-"
+        path: "backend/tests/test_intelligence.py"
+        artifact_sha: "0413f0e5184d4ba3c6892df54289af671eb385d1"
+        evidence: "Tests exercise valid/invalid result IDs and confidence/check fields."
+    interface:
+      protocol: "HTTP REST"
+      method: "GET"
+      path: "/api/v1/verification/results/{result_id}"
+    qualification_state: "NOT_QUALIFIED"
+
+  - capability_id: "CAP-MANIFEX-PENDING"
+    system_id: "SYS-MANIFEX"
+    name: "Capability registration pending source evidence"
+    description: "No implemented MANIFEX capability is registered yet because the inspected repository surface did not expose sufficient source artifacts."
+    evidence_state: "NOT_MEASURED"
+    source_artifacts: []
+    qualification_state: "NOT_QUALIFIED"
+
+  - capability_id: "CAP-KRONOS-EXECUTION-FIXTURE"
+    system_id: "SYS-KRONOS"
+    name: "Controlled M03 fixture execution"
+    description: "Controlled fixture execution and evidence plumbing in the Kronos control plane."
+    evidence_state: "IMPLEMENTED"
+    source_artifacts:
+      - repository: "AppDeploy:kronos-build-evidence-lab-hhwy79"
+        path: "M03 control-plane deployment"
+        revision: "1790912759476"
+        evidence: "Controlled fixture execution, mutation testing, lineage, runtime review, and evidence-package endpoints were implemented."
+    constraints:
+      - "Does not establish arbitrary isolated repository execution."
+      - "The M03 arbitrary-code worker remains unconnected and unqualified."
+    qualification_state: "NOT_QUALIFIED"
+
+  - capability_id: "CAP-KSI-EI-EXPERIMENT-DEFINITION"
+    system_id: "SYS-KSI-EI"
+    name: "Controlled emergent-intelligence experiment definition"
+    description: "Define composition experiments, baselines, repeated trials, comparisons, reproduction, and evidence requirements."
+    evidence_state: "IMPLEMENTED"
+    source_artifacts:
+      - repository: "Evank253/KSI-EMERGENT-INTELLIGENCE"
+        path: "EXPERIMENT_PROTOCOL.md"
+        artifact_sha: "368c17e29d25996a8245f8ab4c2528efd30d7f45"
+        evidence: "Defines controlled experimental procedure and required evidence."
+      - repository: "Evank253/KSI-EMERGENT-INTELLIGENCE"
+        path: "CAPABILITY_COMPOSITION.md"
+        artifact_sha: "ff09b195a54f1d3019b11aba6d003e8239bc6735"
+        evidence: "Defines capability-level composition patterns and baseline requirements."
+    qualification_state: "NOT_QUALIFIED"
+
+  - capability_id: "CAP-KSI-EI-OBSERVATION-SCHEMA"
+    system_id: "SYS-KSI-EI"
+    name: "Experimental observation recording"
+    description: "Represent experiment identity, participants, capabilities, mechanisms, baselines, observations, results, and provenance."
+    evidence_state: "IMPLEMENTED"
+    source_artifacts:
+      - repository: "Evank253/KSI-EMERGENT-INTELLIGENCE"
+        path: "OBSERVATION_SCHEMA.yaml"
+        artifact_sha: "37d87f5a1acbf9c2b203d9cccd9502902de72891"
+        evidence: "Defines structured observation and provenance fields."
+    qualification_state: "NOT_QUALIFIED"
