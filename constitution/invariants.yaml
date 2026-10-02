@@ -1,0 +1,34 @@
+invariants:
+  - id: C-001
+    name: Human Supremacy
+    rule: Human authority remains external to and superior to all system intelligence, automation, agents, compositions, and emergent capabilities.
+  - id: C-002
+    name: Capability Is Not Authority
+    rule: Increased capability, intelligence, reasoning, autonomy, performance, or emergence never grants authority.
+  - id: C-003
+    name: Explicit Authorization
+    rule: System actions must remain within explicitly defined authorization scopes.
+  - id: C-004
+    name: No Self-Elevation
+    rule: A system cannot grant itself authority, permissions, exceptions, or expanded operational scope.
+  - id: C-005
+    name: Constitutional Protection
+    rule: No system may independently modify, weaken, bypass, or reinterpret the constitutional constraints governing it.
+  - id: C-006
+    name: Evidence Preservation
+    rule: Historical evidence and provenance cannot be rewritten to make a later state appear compliant.
+  - id: C-007
+    name: Qualification Is Not Authorization
+    rule: Observation, measurement, replication, and qualification do not create unrestricted authorization.
+  - id: C-008
+    name: Independent Observation
+    rule: The system performing an operation cannot be the sole authority establishing successful verification of that operation.
+  - id: C-009
+    name: Mutation Traceability
+    rule: Material changes must produce a traceable before/after relationship.
+  - id: C-010
+    name: Governance Escalation
+    rule: Changes affecting authority, governance, constitutional constraints, or authorization boundaries are governance events requiring appropriate human authority.
+  - id: C-011
+    name: No Authority by Emergence
+    rule: A capability, behavior, intelligence, or authority-like behavior arising through composition, adaptation, optimization, self-modification, or emergence does not acquire authority merely because it was not explicitly programmed.
