@@ -1,0 +1,15 @@
+schema_version: "M04.1"
+registry_type: "authority-boundary"
+
+boundaries:
+  - boundary_id: "AUTH-HUMAN-001"
+    scope: "ultimate authority"
+    rule: "System capability, qualification, or autonomy cannot supersede human authority."
+
+  - boundary_id: "AUTH-SYSTEM-001"
+    scope: "bounded operational authority"
+    rule: "Systems may operate only within explicitly granted operational limits."
+
+  - boundary_id: "AUTH-EVIDENCE-001"
+    scope: "measurement and qualification"
+    rule: "Qualification establishes an evidence-backed state; qualification does not grant authority."
