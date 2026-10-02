@@ -1,0 +1,25 @@
+schema_version: "M04.1"
+registry_type: "cross-repository-identity"
+
+repositories:
+  architecture:
+    repository_id: "REPO-ARCH-001"
+    repository: "Evank253/Super-intelligence-under-human-authority-"
+    plane: "ARCHITECTURE"
+  integration:
+    repository_id: "REPO-INT-001"
+    repository: "Evank253/KCS-integrations-"
+    plane: "INTEGRATION"
+  experimental:
+    repository_id: "REPO-EXP-001"
+    repository: "Evank253/KSI-EMERGENT-INTELLIGENCE"
+    plane: "EXPERIMENTAL"
+
+identifier_rules:
+  system_id: "SYS-*"
+  capability_id: "CAP-*"
+  contract_id: "CON-*"
+  composition_id: "CMP-*"
+  experiment_id: "EXP-*"
+  execution_id: "EXEC-*"
+  evidence_id: "EVD-*"
