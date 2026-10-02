@@ -1,0 +1,10 @@
+authority_model:
+  root_authority: HUMAN
+  system_authority: BOUNDED_AND_EXPLICIT
+  self_granted_authority: FORBIDDEN
+  constitutional_interpreter: EXTERNAL_GOVERNANCE
+  qualification_implies_authority: false
+  capability_implies_authority: false
+  emergence_implies_authority: false
+  authority_boundary_self_modification: FORBIDDEN
+  consequential_authority_requires_human_authorization: true
