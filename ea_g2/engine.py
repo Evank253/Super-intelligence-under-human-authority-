@@ -1,106 +1,71 @@
-"""EA-G2 governed evolutionary state.
-
-This runtime deliberately owns no historical evidence objects. It stores only
-immutable references (record ID + SHA-256 identity) and interpretive records.
-"""
-
+"""EA-G2 evolutionary state with external historical archive ownership."""
 from __future__ import annotations
-from dataclasses import replace
+import hashlib
+from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Mapping
-
-from evidence_archive import ContentAddressedArchive, HistoricalEvidenceReference, IntegrityError
+from evidence_archive import ContentAddressedArchive, HistoricalEvidenceReference, PrimaryIdentity, IntegrityError
 from .models import ChallengeRecord, EvolutionRecord, HumanRatificationRecord, Provenance
-
 class AuthorityBoundaryError(PermissionError): pass
 class HistoricalReferenceError(ValueError): pass
 class ProvenanceError(ValueError): pass
-
+class RuntimeIntegrityError(RuntimeError): pass
+@dataclass(frozen=True,slots=True)
+class ArchiveReader:
+    _archive: ContentAddressedArchive
+    def get(self,digest): return self._archive.get(digest)
+    def has(self,digest): return self._archive.has(digest)
+    def put(self,*args,**kwargs): raise AuthorityBoundaryError("evolutionary runtime has no archive write capability")
 class EvolutionaryState:
-    __slots__ = ("_archive", "_challenges", "_evolutions", "_ratifications", "__initialized")
-    AUTHORITY_BOUNDARY = "EXTERNAL_HUMAN"
-
-    def __init__(self, archive: ContentAddressedArchive):
-        object.__setattr__(self, "_archive", archive)
-        object.__setattr__(self, "_challenges", {})
-        object.__setattr__(self, "_evolutions", {})
-        object.__setattr__(self, "_ratifications", {})
-        object.__setattr__(self, "_EvolutionaryState__initialized", True)
-
+    __slots__=("__archive_reader","__challenges","__evolutions","__ratifications","__initialized")
+    AUTHORITY_BOUNDARY="EXTERNAL_HUMAN"
+    def __init__(self,archive):
+        if not isinstance(archive,ContentAddressedArchive): raise TypeError("archive must be ContentAddressedArchive")
+        object.__setattr__(self,"_EvolutionaryState__archive_reader",ArchiveReader(archive))
+        object.__setattr__(self,"_EvolutionaryState__challenges",{})
+        object.__setattr__(self,"_EvolutionaryState__evolutions",{})
+        object.__setattr__(self,"_EvolutionaryState__ratifications",{})
+        object.__setattr__(self,"_EvolutionaryState__initialized",True)
     @property
-    def authority_boundary(self) -> str:
-        return type(self).AUTHORITY_BOUNDARY
-
+    def authority_boundary(self): return type(self).AUTHORITY_BOUNDARY
     @property
-    def challenges(self) -> Mapping[str, ChallengeRecord]:
-        return MappingProxyType(dict(self._challenges))
-
+    def archive(self): return self.__archive_reader
     @property
-    def evolutions(self) -> Mapping[str, EvolutionRecord]:
-        return MappingProxyType(dict(self._evolutions))
-
+    def challenges(self)->Mapping[str,ChallengeRecord]: return MappingProxyType(dict(self.__challenges))
     @property
-    def ratifications(self) -> Mapping[str, HumanRatificationRecord]:
-        return MappingProxyType(dict(self._ratifications))
-
-    def _check_provenance(self, p: Provenance):
-        if not isinstance(p, Provenance):
-            raise ProvenanceError("valid Provenance is required")
-
-    def add_challenge(self, record: ChallengeRecord) -> None:
+    def evolutions(self)->Mapping[str,EvolutionRecord]: return MappingProxyType(dict(self.__evolutions))
+    @property
+    def ratifications(self)->Mapping[str,HumanRatificationRecord]: return MappingProxyType(dict(self.__ratifications))
+    @staticmethod
+    def _check_provenance(p):
+        if not isinstance(p,Provenance): raise ProvenanceError("valid Provenance is required")
+    def add_challenge(self,record):
         self._check_provenance(record.provenance)
-        if record.challenge_id in self._challenges: raise ValueError("duplicate challenge_id")
-        self._challenges = {**self._challenges, record.challenge_id: record}
-
-    def add_evolution(self, record: EvolutionRecord) -> None:
+        if record.challenge_id in self.__challenges: raise ValueError("duplicate challenge_id")
+        self.__challenges={**self.__challenges,record.challenge_id:record}
+    def add_evolution(self,record):
         self._check_provenance(record.provenance)
-        if record.evolution_id in self._evolutions: raise ValueError("duplicate evolution_id")
-        ref = HistoricalEvidenceReference(record.historical_record_id, record.historical_hash)
-        if not self._archive.has(ref.content_hash):
-            raise HistoricalReferenceError("historical reference is not present and verifiable in archive")
-        if record.historical_record_id.startswith("HIST-") and not record.historical_record_id:
-            raise HistoricalReferenceError("invalid historical reference")
-        self._evolutions = {**self._evolutions, record.evolution_id: record}
-
-    def add_ratification(self, record: HumanRatificationRecord) -> None:
+        if record.evolution_id in self.__evolutions: raise ValueError("duplicate evolution_id")
+        ref=HistoricalEvidenceReference(record.historical_record_id,PrimaryIdentity("sha256-raw",record.historical_hash,"SHA-256","raw-bytes","primary"),provenance=record.provenance)
+        if not self.__archive_reader.has(ref.content_hash): raise HistoricalReferenceError("historical reference is absent or fails primary verification")
+        self.__evolutions={**self.__evolutions,record.evolution_id:record}
+    def add_ratification(self,record):
         self._check_provenance(record.provenance)
-        if record.ratification_id in self._ratifications: raise ValueError("duplicate ratification_id")
-        self._ratifications = {**self._ratifications, record.ratification_id: record}
-
-    def retrieve_verified(self, reference: HistoricalEvidenceReference) -> bytes:
-        data = self._archive.get(reference.content_hash)
-        if reference.hash_algorithm != "SHA-256":
-            raise HistoricalReferenceError("unsupported primary hash algorithm")
+        if record.ratification_id in self.__ratifications: raise ValueError("duplicate ratification_id")
+        self.__ratifications={**self.__ratifications,record.ratification_id:record}
+    def retrieve_verified(self,reference):
+        if not isinstance(reference,HistoricalEvidenceReference): raise HistoricalReferenceError("typed historical reference required")
+        try: data=self.__archive_reader.get(reference.content_hash)
+        except (FileNotFoundError,IntegrityError) as exc: raise HistoricalReferenceError("primary verification failed") from exc
+        if hashlib.sha256(data).hexdigest()!=reference.primary_identity.content_identifier: raise HistoricalReferenceError("primary verification failed")
         return data
-
-    def authorize_from_challenge(self, *_args, **_kwargs):
-        raise AuthorityBoundaryError("challenge cannot create authority")
-
-    def authorize_from_evidence(self, *_args, **_kwargs):
-        raise AuthorityBoundaryError("evidence cannot create authority")
-
-    def authorize_from_qualification(self, *_args, **_kwargs):
-        raise AuthorityBoundaryError("qualification cannot create authority")
-
-    def upgrade_from_consensus(self, *_args, **_kwargs):
-        raise AuthorityBoundaryError("consensus cannot create truth or authority")
-
-    def modify_historical(self, *_args, **_kwargs):
-        raise AuthorityBoundaryError("evolutionary runtime has no historical write capability")
-
-    def modify_architecture_from_inside(self, *_args, **_kwargs):
-        raise AuthorityBoundaryError("internal state cannot acquire authority")
-
-    def verify(self) -> dict[str, object]:
-        return {
-            "historical_state_owned": False,
-            "authority_boundary": self.authority_boundary,
-            "primary_verification_required": True,
-            "invariants_enforced_by_public_mechanism": True,
-        }
-
-    def __setattr__(self, name, value):
-        if getattr(self, "_EvolutionaryState__initialized", False):
-            if name in {"_archive","_challenges","_evolutions","_ratifications"}:
-                raise AttributeError(f"{name} is runtime-owned state and cannot be directly reassigned")
-        object.__setattr__(self, name, value)
+    def authorize_from_challenge(self,*args,**kwargs): raise AuthorityBoundaryError("challenge cannot create authority")
+    def authorize_from_evidence(self,*args,**kwargs): raise AuthorityBoundaryError("evidence cannot create authority")
+    def authorize_from_qualification(self,*args,**kwargs): raise AuthorityBoundaryError("qualification cannot create authority")
+    def upgrade_from_consensus(self,*args,**kwargs): raise AuthorityBoundaryError("consensus cannot create truth or authority")
+    def modify_historical(self,*args,**kwargs): raise AuthorityBoundaryError("evolutionary runtime has no historical write capability")
+    def modify_architecture_from_inside(self,*args,**kwargs): raise AuthorityBoundaryError("internal state cannot acquire authority")
+    def verify(self): return {"historical_state_owned":False,"authority_boundary":self.authority_boundary,"primary_verification_required":True,"archive_write_capability":False}
+    def __setattr__(self,name,value):
+        if getattr(self,"_EvolutionaryState__initialized",False): raise AttributeError("EA-G2 runtime state is not directly reassignable")
+        object.__setattr__(self,name,value)
