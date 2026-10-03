@@ -1,6 +1,3 @@
-"""EA-G2 external historical evidence archive boundary."""
-
-from .cas import ContentAddressedArchive, IntegrityError
-from .references import HistoricalEvidenceReference
-
-__all__ = ["ContentAddressedArchive", "IntegrityError", "HistoricalEvidenceReference"]
+from .cas import ContentAddressedArchive, IntegrityError, ArchiveWriteError
+from .references import HistoricalEvidenceReference, PrimaryIdentity, SecondaryIdentifier
+__all__=["ContentAddressedArchive","IntegrityError","ArchiveWriteError","HistoricalEvidenceReference","PrimaryIdentity","SecondaryIdentifier"]
