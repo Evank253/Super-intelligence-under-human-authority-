@@ -103,3 +103,35 @@ def test_secondary_identifier_requires_explicit_primary_verification(tmp_path):
 def test_secondary_identifier_is_additive_and_typed():
     sec=SecondaryIdentifier("ipfs-cid","bafyexample","multihash","raw-bytes","secondary","recompute-sha256",True,"2026-10-03T00:00:00Z")
     assert sec.identifier_type == "ipfs-cid"
+
+
+def test_g2_13_private_collections_are_not_mutable(tmp_path):
+    _, s = state(tmp_path)
+    with pytest.raises(TypeError):
+        s._EvolutionaryState__challenges["injected"] = None
+    with pytest.raises(TypeError):
+        s._EvolutionaryState__evolutions["injected"] = None
+
+def test_g2_14_private_archive_reader_cannot_reach_writable_archive(tmp_path):
+    archive, s = state(tmp_path)
+    reader = s._EvolutionaryState__archive_reader
+    with pytest.raises(AttributeError):
+        _ = reader._archive
+    with pytest.raises(AuthorityBoundaryError):
+        reader.put(b"evil")
+    assert not archive.has(hashlib.sha256(b"evil").hexdigest())
+
+def test_g2_15_class_authority_constant_cannot_be_replaced(tmp_path):
+    _, s = state(tmp_path)
+    original = EvolutionaryState.AUTHORITY_BOUNDARY if hasattr(EvolutionaryState, "AUTHORITY_BOUNDARY") else "EXTERNAL_HUMAN"
+    with pytest.raises(AttributeError):
+        EvolutionaryState.AUTHORITY_BOUNDARY = "HIJACKED"
+    assert s.authority_boundary == "EXTERNAL_HUMAN"
+    assert original == "EXTERNAL_HUMAN"
+
+def test_g2_16_critical_authority_method_cannot_be_monkey_patched(tmp_path):
+    _, s = state(tmp_path)
+    with pytest.raises(AttributeError):
+        EvolutionaryState.authorize_from_evidence = lambda self: "HIJACKED"
+    with pytest.raises(AuthorityBoundaryError):
+        s.authorize_from_evidence("E-1")
