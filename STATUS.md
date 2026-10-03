@@ -3,34 +3,29 @@
 **Repository:** Super Intelligence Under Human Authority  
 **Owner:** Evan Ketchum  
 **Default branch:** Python-3  
-**Current phase:** Architecture foundation / integration audit  
+**Current phase:** EA-G1 experimental implementation  
 **Verification status:** NOT ESTABLISHED
 
 ## Status rule
 
-This repository distinguishes:
-
-**Architecture → Implementation → Verification → Qualification → Human Ratification**
+`Architecture → Implementation → Verification → Qualification → Human Ratification`
 
 No status may be promoted merely because a document, model, benchmark, or prior repository asserts it.
 
-## Baseline
+## EA-G1
 
-The initial IP/provenance baseline is the commit ending in:
+EA-G1 is the first implementation experiment against the frozen conceptual architecture. It is not a conceptual iteration.
 
-`01c0d11b86113f48c5aa1e2c5b91362b22a812e6`
+- Specification baseline: **FROZEN**
+- Implementation generation: **EA-G1**
+- Implementation status: **EXPERIMENTAL**
+- Historical impact: **NONE**
+- Runtime execution result: **NOT MEASURED / PENDING EXECUTION**
 
-This baseline contains the README, repository license, copyright notice, patent-status notice, and USPTO certificate provenance record.
+The implementation must not silently modify the conceptual baseline. Contradictions become implementation evidence and may be recorded as proposed evolution.
 
-## Current evidence boundary
+## Historical evidence boundary
 
-- New canonical architecture: **PROPOSED / implementation in progress**
-- KSI-ASI-001: **PROPOSED**
-- E0–E5 ladder: **CANONICAL v1 by prior human ratification; exact source artifact recovery pending**
-- Prior KCN/KSI/MANIFEX artifacts: **historical/recoverable; import status must be established individually**
-- Historical benchmark metrics: **NOT MEASURED unless underlying artifacts are recovered and independently verified**
-- Patent filing status: **NOT ESTABLISHED in this repository**
+Historical records retain their recorded state. New evidence, test results, and interpretations are additive and separately attributable.
 
-## Rule
-
-Missing evidence remains **EVIDENCE REQUIRED / OPEN** or **NOT MEASURED**. It is never silently converted into a positive result.
+Missing evidence remains **EVIDENCE REQUIRED / OPEN** or **NOT MEASURED**.
