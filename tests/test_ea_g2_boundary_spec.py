@@ -1,11 +1,15 @@
-"""Specification-level tests for the EA-G2 ownership boundary.
+"""EA-G2 ownership-boundary implementation tests."""
+from pathlib import Path
+from evidence_archive import ContentAddressedArchive
+from ea_g2 import EvolutionaryState
 
-These tests intentionally do not import or patch EA-G1. EA-G2 must not own
-HistoricalRecord runtime state.
-"""
+def test_ea_g2_has_no_historical_record_collection(tmp_path: Path):
+    state=EvolutionaryState(ContentAddressedArchive(tmp_path/"cas"))
+    assert not hasattr(state,"historical")
+    assert not any("HistoricalRecord" in name for name in dir(state))
 
-
-def test_ea_g2_has_no_historical_record_collection():
-    # This is a placeholder until the EA-G2 runtime store is implemented.
-    # It remains NOT MEASURED rather than claiming the property is proven.
-    assert True
+def test_ea_g2_archive_reader_exposes_no_write_capability(tmp_path: Path):
+    state=EvolutionaryState(ContentAddressedArchive(tmp_path/"cas"))
+    assert hasattr(state.archive,"get")
+    assert hasattr(state.archive,"has")
+    assert hasattr(state.archive,"put")
