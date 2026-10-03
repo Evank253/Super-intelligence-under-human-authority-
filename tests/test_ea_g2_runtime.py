@@ -13,7 +13,7 @@ def test_runtime_has_no_historical_record_collection(tmp_path: Path):
 def test_primary_reference_retrieval_is_verified(tmp_path: Path):
     a=ContentAddressedArchive(tmp_path/"cas"); d=a.put(b"evidence")
     s=EvolutionaryState(a)
-    assert s.retrieve_verified(HistoricalEvidenceReference("EXP-004",d)) == b"evidence"
+    assert s.retrieve_verified(HistoricalEvidenceReference("EXP-004", __import__("evidence_archive").PrimaryIdentity("sha256-raw", d, "SHA-256", "raw-bytes", "primary"))) == b"evidence"
 
 def test_wrong_hash_reference_is_rejected(tmp_path: Path):
     a=ContentAddressedArchive(tmp_path/"cas"); d=a.put(b"evidence")
