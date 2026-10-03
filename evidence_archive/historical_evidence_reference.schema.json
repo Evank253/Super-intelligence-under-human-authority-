@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "historical-evidence-reference.schema.json",
+  "title": "HistoricalEvidenceReference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "primary_identity",
+    "secondary_identifiers",
+    "provenance"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "primary_identity": {
+      "$ref": "#/$defs/identifier"
+    },
+    "secondary_identifiers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/secondaryIdentifier"
+      },
+      "uniqueItems": true
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier_type",
+        "content_identifier",
+        "hash_algorithm",
+        "representation",
+        "role"
+      ],
+      "properties": {
+        "identifier_type": {
+          "type": "string",
+          "const": "sha256-raw"
+        },
+        "content_identifier": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "hash_algorithm": {
+          "type": "string",
+          "const": "SHA-256"
+        },
+        "representation": {
+          "type": "string",
+          "const": "raw-bytes"
+        },
+        "role": {
+          "type": "string",
+          "const": "primary"
+        }
+      }
+    },
+    "secondaryIdentifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier_type",
+        "content_identifier",
+        "hash_algorithm",
+        "representation",
+        "role",
+        "verification"
+      ],
+      "properties": {
+        "identifier_type": {
+          "type": "string",
+          "enum": [
+            "ipfs-cid",
+            "git-object",
+            "other-content-address"
+          ]
+        },
+        "content_identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hash_algorithm": {
+          "type": "string",
+          "minLength": 1
+        },
+        "representation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "const": "secondary"
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "verified_against_primary",
+        "verified_at"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verified_against_primary": {
+          "type": "boolean",
+          "const": true
+        },
+        "verified_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "derivation": {
+          "type": "string"
+        },
+        "retrieval_reference": {
+          "type": "string"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin",
+        "lineage",
+        "source"
+      ],
+      "properties": {
+        "origin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lineage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_hash": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
