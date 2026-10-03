@@ -6,6 +6,26 @@
 
 This repository is being established as the clean canonical integration point for the human-governed intelligence, evidence, verification, qualification, and execution architecture developed across the KCN, KSI, MANIFEX, benchmark, evidence, and adversarial-testing work.
 
+## Human–AI bottleneck reduction mission
+
+The three-system architecture serves one systems mission:
+
+> **Reduce human–AI bottlenecks by identifying, decomposing, measuring, and addressing the specific constraints that prevent available intelligence and capability from producing reliable outcomes—while preserving provenance, evidence boundaries, qualification controls, and human final authority.**
+
+The mission is architectural direction, not a claim that system-level superintelligence or mission completion has been established.
+
+- **KCN** — intelligence / cognitive capability
+- **MANIFEX** — engineering / execution infrastructure
+- **KSI / Super Intelligence Under Human Authority** — governance / qualification
+
+The systems remain distinct implementations with controlled interfaces. Governance is an authority boundary, not merely a downstream processing stage.
+
+The reusable bottleneck-reduction loop is:
+
+**Observe → Identify Bottleneck → Decompose → Establish Baseline → Design Intervention → Implement → Test → Verify → Qualify → Human Ratification → Measure Outcome → Identify Next Bottleneck**
+
+Future systems-impact claims should distinguish capability, measured performance, and measured bottleneck reduction. See [architecture/CANONICAL-MISSION-AND-BOTTLENECK-REDUCTION.md](architecture/CANONICAL-MISSION-AND-BOTTLENECK-REDUCTION.md).
+
 ## Foundational separation
 
 The architecture maintains three distinct states:
