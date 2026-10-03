@@ -3,7 +3,7 @@
 **Generation:** EA-G2  
 **Specification:** FROZEN / READY  
 **Runtime implementation:** IN PROGRESS  
-**Adversarial execution:** NOT MEASURED  
+**Adversarial execution:** PARTIAL INDEPENDENT MEASUREMENT — DEFECTS FOUND; REPAIR IN PROGRESS  
 **Qualification:** NOT CLAIMED  
 **Historical impact:** NONE
 
@@ -31,7 +31,7 @@ The repository now contains:
 
 ## Evidence boundary
 
-No test result has been independently executed and recorded as a qualification result in this document. Runtime behavior must be executed in an appropriate environment before PASS/FAIL/PARTIAL status is assigned to the generation.
+Independent adversarial measurement has now been performed and identified implementation defects. Those results are implementation evidence only and have not been converted into qualification. Runtime behavior must be executed in an appropriate environment before PASS/FAIL/PARTIAL status is assigned to the generation.
 
 A passing implementation test would establish only the tested implementation behavior under the tested conditions. It would not establish system-level safety, qualification, authority, or superintelligence.
 
