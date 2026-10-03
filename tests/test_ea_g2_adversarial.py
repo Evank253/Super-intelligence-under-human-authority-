@@ -101,5 +101,5 @@ def test_secondary_identifier_requires_explicit_primary_verification(tmp_path):
         SecondaryIdentifier("ipfs-cid","bafyexample","multihash","dag-cbor","secondary","none",False,"2026-10-03T00:00:00Z")
 
 def test_secondary_identifier_is_additive_and_typed():
-    sec=SecondaryIdentifier("ipfs-cid","bafyexample","multihash","raw-bytes","secondary","recompute-sha256","true","2026-10-03T00:00:00Z")
+    sec=SecondaryIdentifier("ipfs-cid","bafyexample","multihash","raw-bytes","secondary","recompute-sha256",True,"2026-10-03T00:00:00Z")
     assert sec.identifier_type == "ipfs-cid"
