@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "inventory_status": "INITIAL_DISCOVERY_ONLY",
+  "rule": "Repository identity does not imply qualification, verification, or current runtime validity.",
+  "sources": [
+    {
+      "source_system": "Super Intelligence Under Human Authority",
+      "repository": "Evank253/Super-intelligence-under-human-authority-",
+      "ref": "Python-3",
+      "commit_sha": "b7723bf5b31f97b56eb45235f66e3bf6badb184a",
+      "tree_sha": "b530c0ac6334af431505919b9ece707ebcd3ec84",
+      "role": "canonical integration/governance/evaluation architecture",
+      "status": "CURRENT_BASELINE"
+    },
+    {
+      "source_system": "KCN",
+      "repository": "Evank253/KCN-SUPER-COGNITIVE-HUMAN-GOVERNED-INTELLIGENCE-ECOSYSTEM-",
+      "ref": "copilot/kcn-super-cognitive-ecosystem",
+      "commit_sha": "6fceb5cdc573bc5fa0df31bde3e7388fc52cb6e6",
+      "tree_sha": "04a1b9a83beb2daf7b3a50d598e7cb41c0436779",
+      "role": "intelligence/cognitive capability source",
+      "status": "RECOVERY_SOURCE"
+    },
+    {
+      "source_system": "Kronos execution runtime",
+      "repository": "Evank253/Kronos-super-intelligence-",
+      "ref": "974347acbaa4edf4b755b114a8e0ca4c194fa7f5",
+      "commit_sha": "974347acbaa4edf4b755b114a8e0ca4c194fa7f5",
+      "tree_sha": "6d2134efd6ff5b7b4f624410466f60ce4c628742",
+      "role": "KCN/KCIS runtime harness and execution substrate",
+      "entrypoint": "launcher.py",
+      "test_executor": "runner.test_executor.KCNTestExecutor",
+      "status": "RECOVERY_SOURCE"
+    },
+    {
+      "source_system": "KSI Benchmark Suite",
+      "repository": "Evank253/KSI-Benchmark-Suite",
+      "ref": "Python-3",
+      "commit_sha": "f710816cf0cf0fa1287ee3d4c718b950875d30f4",
+      "tree_sha": "a1dfedfe592cea50eed05658f71d52b0e52ba947",
+      "role": "fixed benchmark/runner/grading/history",
+      "status": "RECOVERY_SOURCE"
+    },
+    {
+      "source_system": "MANIFEX Engineering OS",
+      "repository": "Evank253/MANIFEX-ENGINEERING-OS",
+      "ref": "Python-3",
+      "commit_sha": "c7a19803b732fc8fe8abf29a8f46daec869585a5",
+      "tree_sha": "4e67107cb925bac067039569de79d5ec1bc1f54d",
+      "role": "engineering/execution infrastructure",
+      "status": "RECOVERY_SOURCE"
+    },
+    {
+      "source_system": "MANIFEX",
+      "repository": "Evank253/MANIFEX",
+      "ref": "Python-3",
+      "commit_sha": "e7660b8f6342f2de0c407a6dc1ea66a782b0b3fe",
+      "tree_sha": "9d6b827c697623467a3826ca9880bc67af1c3d83",
+      "role": "historical/current engineering source",
+      "status": "RECOVERY_SOURCE"
+    },
+    {
+      "source_system": "Kronos-X",
+      "repository": "Evank253/Kronos-X-",
+      "ref": "Python-3",
+      "commit_sha": "52529cde18b5a6d41bfd56da23c5161f091224d7",
+      "tree_sha": "f5f22e88e1eb82ed07d65e26d5c4762de252e7c7",
+      "role": "execution/evidence/reconciliation/review/lineage/repair/reproducibility",
+      "status": "RECOVERY_SOURCE"
+    },
+    {
+      "source_system": "ai-eval-platform-fixed",
+      "repository": null,
+      "ref": null,
+      "commit_sha": null,
+      "tree_sha": null,
+      "role": "historical evaluation platform referenced by prior work",
+      "status": "OPEN_RECOVERY_REQUIRED",
+      "finding": "Exact GitHub repository-name search did not locate a repository with this exact name during the current recovery pass."
+    }
+  ]
+}
