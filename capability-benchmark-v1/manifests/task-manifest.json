@@ -1,0 +1,63 @@
+{
+  "benchmark_version": "CB-v1.0",
+  "state": "FROZEN",
+  "task_count": 140,
+  "domains": {
+    "science": {
+      "task_count": 20,
+      "core": 10,
+      "adversarial": 5,
+      "transfer": 5,
+      "task_path": "tasks/science.jsonl",
+      "reference_path": "reference/science.jsonl"
+    },
+    "engineering": {
+      "task_count": 20,
+      "core": 10,
+      "adversarial": 5,
+      "transfer": 5,
+      "task_path": "tasks/engineering.jsonl",
+      "reference_path": "reference/engineering.jsonl"
+    },
+    "mathematics": {
+      "task_count": 20,
+      "core": 10,
+      "adversarial": 5,
+      "transfer": 5,
+      "task_path": "tasks/mathematics.jsonl",
+      "reference_path": "reference/mathematics.jsonl"
+    },
+    "strategy": {
+      "task_count": 20,
+      "core": 10,
+      "adversarial": 5,
+      "transfer": 5,
+      "task_path": "tasks/strategy.jsonl",
+      "reference_path": "reference/strategy.jsonl"
+    },
+    "creativity": {
+      "task_count": 20,
+      "core": 10,
+      "adversarial": 5,
+      "transfer": 5,
+      "task_path": "tasks/creativity.jsonl",
+      "reference_path": "reference/creativity.jsonl"
+    },
+    "planning": {
+      "task_count": 20,
+      "core": 10,
+      "adversarial": 5,
+      "transfer": 5,
+      "task_path": "tasks/planning.jsonl",
+      "reference_path": "reference/planning.jsonl"
+    },
+    "research": {
+      "task_count": 20,
+      "core": 10,
+      "adversarial": 5,
+      "transfer": 5,
+      "task_path": "tasks/research.jsonl",
+      "reference_path": "reference/research.jsonl"
+    }
+  }
+}
