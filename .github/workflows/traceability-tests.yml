@@ -1,0 +1,17 @@
+name: Traceability Tests
+
+on:
+  push:
+    branches: ["evaluation-ledger-v1"]
+  workflow_dispatch:
+
+jobs:
+  traceability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -U pytest
+      - run: pytest -q evaluation/system_ledger/test_traceability.py
