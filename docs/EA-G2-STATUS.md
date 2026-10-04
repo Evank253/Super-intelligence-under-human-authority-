@@ -2,10 +2,11 @@
 
 **Generation:** EA-G2  
 **Specification:** FROZEN / READY  
-**Runtime implementation:** IN PROGRESS  
-**Adversarial execution:** PARTIAL INDEPENDENT MEASUREMENT — DEFECTS FOUND; REPAIR IN PROGRESS  
+**Runtime implementation:** COMPLETE FOR TESTED EA-G2 SCOPE  
+**Adversarial verification:** PASS FOR TESTED SCOPE  
 **Qualification:** NOT CLAIMED  
-**Historical impact:** NONE
+**Human authority:** EXTERNAL / UNCHANGED  
+**Historical impact on EA-G1:** NONE
 
 ## Current boundary
 
@@ -18,23 +19,95 @@ EA-G2 separates historical evidence ownership from evolutionary runtime state.
 - Evidence, qualification, consensus, or internal challenge results cannot create authority.
 - Human ratification remains an explicit external governance event.
 
-## Implementation status
+## Independent measurement record
 
-The repository now contains:
+Independent measurement was performed against commit `6167544`.
 
-- `ea_g2/` runtime package.
-- `evidence_archive/` SHA-256 CAS/reference implementation.
-- `tests/test_ea_g2_adversarial.py` executable G2-01 through G2-12 attack mapping plus secondary-identifier tests.
-- `tests/test_ea_g2_boundary_spec.py` runtime ownership-boundary checks.
-- `adversarial/EA-G2/TEST-HARNESS.py` stable attack-ID mapping.
-- Frozen EA-G2 specification and verification-rule documents.
+**Environment reported by the independent evaluator:**
 
-## Evidence boundary
+- Python 3.12.3
+- Ubuntu 24.04.4 LTS
+- Linux 6.12.8+
+- x86_64
 
-Independent adversarial measurement has now been performed and identified implementation defects. Those results are implementation evidence only and have not been converted into qualification. Runtime behavior must be executed in an appropriate environment before PASS/FAIL/PARTIAL status is assigned to the generation.
+**Test scope reported:**
 
-A passing implementation test would establish only the tested implementation behavior under the tested conditions. It would not establish system-level safety, qualification, authority, or superintelligence.
+```
+tests/test_ea_g2_*.py + tests/test_ea_g1_*.py
+```
 
-## Next measurement step
+**Result:** **46 passed, 0 failed**
 
-Run the full EA-G2 unit and adversarial suite against a clean checkout, including deeper bypass attacks (reference leakage, `object.__setattr__`, subclassing, malicious deserialization, collection replacement/clearing, and concurrency where applicable), then record results without altering the EA-G1 historical record.
+The measurement included the previously open G2 surfaces:
+
+- instance authority-boundary reassignment
+- class-level authority-constant mutation
+- private/name-mangled challenge-state mutation
+- archive-reader reachability
+- attempted archive writes through the reader
+- class-method monkey-patching of sealed authority methods
+- CAS on-disk corruption detection
+- legitimate `add_*` paths
+- primary SHA-256 verification
+- secondary-identifier constraints
+
+The measured mechanisms prevented the tested attacks.
+
+## Interpretation boundary
+
+The precise supported claim is:
+
+> **EA-G2's implemented mechanisms enforced the tested invariants under the tested attack surface.**
+
+The 46/46 result is measurement evidence. It is not a claim of universal security, complete resistance to all Python/runtime attacks, production qualification, system-wide correctness, superintelligence, or authority.
+
+Qualification remains **NOT CLAIMED**. Human authority remains external to the runtime.
+
+## Explicitly untested or not established by this measurement
+
+The 46/46 result does not by itself establish resistance to every possible attack class. The following were not established by the reported measurement and remain explicit residual scope:
+
+- malicious deserialization attacks
+- subclass/override attacks beyond the tested sealed-method surface
+- concurrency/race-condition attacks
+- broader runtime integration outside the EA-G2 test scope
+- arbitrary future verification/indexing behavior
+- universal resistance to attacks not represented in the executed harness
+
+These are not failures unless and until they are measured as such. They remain **not established by this measurement**.
+
+## Relationship to EA-G1
+
+EA-G1 remains a frozen historical record. Its previously measured ownership-boundary failure is unchanged.
+
+The evolution chain is preserved:
+
+```
+EA-G1 implementation
+    ↓
+Independent adversarial evidence
+    ↓
+Ownership-boundary failure discovered
+    ↓
+Architectural reinterpretation
+    ↓
+EA-G2 specification
+    ↓
+EA-G2 implementation
+    ↓
+Independent adversarial measurement
+    ↓
+46/46 PASS for tested scope
+```
+
+No EA-G1 result has been retroactively upgraded, downgraded, or rewritten.
+
+## Qualification boundary
+
+This status record does **not** qualify EA-G2.
+
+The required distinction remains:
+
+**Architecture → Implementation → Verification → Qualification → Human Ratification**
+
+EA-G2 currently occupies the implementation/verification stage for the tested scope. Qualification and human ratification remain separate decisions and events.
