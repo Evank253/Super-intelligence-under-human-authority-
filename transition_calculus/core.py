@@ -1,8 +1,7 @@
 """Executable TransitionRecord validation and anti-promotion boundary.
 
-This module is an implementation target for the formal specification. It does not
-mint sovereign authorization. S4 authorization is represented as an external
-authority record and must be validated by an injected external authority verifier.
+This module does not mint sovereign authorization. An in-process verifier,
+string attestation, or caller-supplied result cannot establish S4 authority.
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -65,10 +64,13 @@ class ValidationResult:
     reason: str
 
 S4_STATES=frozenset({"S4_AUTHORIZATION","AUTHORIZED"})
+S4_SOURCE_FOR={"S4_AUTHORIZATION":frozenset({"GOVERNED"}),"AUTHORIZED":frozenset({"GOVERNED","S4_AUTHORIZATION"})}
+LOWER_ORIGINS=frozenset({DecisionOrigin.S1,DecisionOrigin.S2,DecisionOrigin.S3,DecisionOrigin.SYSTEM})
 PROMOTION_PAIRS=frozenset({
-    ("NOT_MEASURED","QUALIFIED"),("UNKNOWN","AUTHORIZED"),("CAPABILITY","AUTHORITY"),
-    ("EVIDENCE","SOVEREIGNTY"),("QUALIFICATION","SOVEREIGNTY"),
-    ("DELEGATION","SOVEREIGNTY"),("S3_RECOMMENDATION","S4_AUTHORIZATION"),
+    ("NOT_MEASURED","QUALIFIED"),("NOT_MEASURED","AUTHORIZED"),("NOT_MEASURED","GOVERNED"),
+    ("UNRESOLVED","AUTHORIZED"),("UNKNOWN","AUTHORIZED"),("CAPABILITY","AUTHORITY"),
+    ("EVIDENCE","SOVEREIGNTY"),("EVIDENCE","AUTHORIZED"),("QUALIFICATION","SOVEREIGNTY"),
+    ("QUALIFIED","AUTHORIZED"),("DELEGATION","SOVEREIGNTY"),("S3_RECOMMENDATION","S4_AUTHORIZATION"),
     ("SYSTEM_GENERATED","HUMAN_SOVEREIGN_ACT"),
 })
 
@@ -80,15 +82,13 @@ def _time_valid(at, interval):
     return at >= start and (end is None or at <= end)
 
 class TransitionValidator:
-    """Validate transitions without trusting destination labels."""
+    """Validate transitions without trusting destination labels or caller results."""
     def __init__(self, authority_records: Mapping[str,S4AuthorizationRecord]|None=None,
                  external_authority_verifier: Callable[[S4AuthorizationRecord],bool]|None=None):
         self._authority_records=dict(authority_records or {})
         self._external_authority_verifier=external_authority_verifier
 
     def validate(self, transition: TransitionRecord, *, now=None, prior_transition=None):
-        if transition.result == ValidationStatus.INVALID:
-            return ValidationResult(ValidationStatus.INVALID,"NONE","Transition record is marked invalid.")
         if not transition.provenance:
             return ValidationResult(ValidationStatus.INVALID,"NONE","Missing transition provenance.")
         if not _time_valid(transition.timestamp,transition.temporal_validity):
@@ -98,23 +98,21 @@ class TransitionValidator:
         if (transition.source_state,transition.destination_state) in PROMOTION_PAIRS:
             return ValidationResult(ValidationStatus.INVALID,"NONE","Forbidden anti-promotion transition.")
         if transition.destination_state in S4_STATES:
-            return self._validate_s4(transition,now)
+            return self._validate_s4(transition,now,prior_transition)
         if transition.transition_class == TransitionClass.AUTHORITY:
             return ValidationResult(ValidationStatus.INVALID,"NONE","Authority transitions require externally validated S4 authorization.")
-        if transition.destination_state=="QUALIFIED" and transition.source_state=="NOT_MEASURED":
-            return ValidationResult(ValidationStatus.INVALID,"NONE","NOT_MEASURED cannot promote to QUALIFIED.")
         if transition.destination_state=="QUALIFIED" and not transition.qualification_refs:
             return ValidationResult(ValidationStatus.NOT_MEASURED,"NONE","Qualification evidence is absent.")
         if transition.destination_state=="GOVERNED" and not transition.governance_refs:
             return ValidationResult(ValidationStatus.NOT_MEASURED,"NONE","Governance evidence is absent.")
-        if prior_transition is not None and transition.destination_state in S4_STATES:
-            if not _within_scope(transition.scope,prior_transition.scope):
-                return ValidationResult(ValidationStatus.INVALID,"NONE","Authorization scope expanded without new S4 authorization.")
-        return ValidationResult(ValidationStatus.VALID,"NONE","Transition requirements satisfied.")
+        return ValidationResult(ValidationStatus.VALID,"NONE","Transition requirements satisfied. Caller result was not consulted.")
 
-    def _validate_s4(self, transition, now):
-        if transition.decision_origin != DecisionOrigin.S4:
-            return ValidationResult(ValidationStatus.AUTHORIZATION_REQUIRED,"NONE","S4 authorization requires S4 decision origin.")
+    def _validate_s4(self, transition, now, prior_transition):
+        allowed=S4_SOURCE_FOR.get(transition.destination_state, frozenset())
+        if transition.source_state not in allowed:
+            return ValidationResult(ValidationStatus.INVALID,"NONE","S4 destination is not reachable from this source state.")
+        if transition.decision_origin in LOWER_ORIGINS:
+            return ValidationResult(ValidationStatus.AUTHORIZATION_REQUIRED,"NONE","S1-S3 or system origin cannot produce S4 authority.")
         if transition.authority_ref is None:
             return ValidationResult(ValidationStatus.AUTHORIZATION_REQUIRED,"NONE","No sovereign authority reference supplied.")
         record=self._authority_records.get(transition.authority_ref)
@@ -122,23 +120,19 @@ class TransitionValidator:
             return ValidationResult(ValidationStatus.AUTHORIZATION_REQUIRED,"NONE","Sovereign authority record is absent.")
         if record.origin != AuthorityOrigin.S4_EXTERNAL_HUMAN:
             return ValidationResult(ValidationStatus.INVALID,"NONE","Authority origin is not external human S4.")
-        if self._external_authority_verifier is None:
-            return ValidationResult(ValidationStatus.NOT_MEASURED,"NONE","External sovereign attestation has not been independently verified.")
-        if not self._external_authority_verifier(record):
-            return ValidationResult(ValidationStatus.INVALID,"NONE","External sovereign attestation failed verification.")
         if record.subject != transition.subject:
             return ValidationResult(ValidationStatus.INVALID,"NONE","S4 subject mismatch.")
         if not _within_scope(transition.scope,record.scope):
             return ValidationResult(ValidationStatus.INVALID,"NONE","S4 scope does not cover requested scope.")
+        if prior_transition is not None and not _within_scope(transition.scope,prior_transition.scope):
+            return ValidationResult(ValidationStatus.INVALID,"NONE","Authorization scope expanded without a new S4 authorization.")
         if not _time_valid(transition.timestamp,(record.valid_from,record.valid_until)):
             return ValidationResult(ValidationStatus.INVALID,"NONE","S4 authorization is not temporally valid.")
         if now is not None and not _time_valid(now,(record.valid_from,record.valid_until)):
             return ValidationResult(ValidationStatus.INVALID,"NONE","S4 authorization is stale or expired.")
-        if transition.provenance[-1] != transition.authority_ref:
+        if not transition.provenance or transition.provenance[-1] != transition.authority_ref:
             return ValidationResult(ValidationStatus.INVALID,"NONE","Provenance does not terminate at cited S4 authority record.")
-        return ValidationResult(ValidationStatus.VALID,"AUTHORIZED","Valid S4 authorization transition.")
+        return ValidationResult(ValidationStatus.NOT_MEASURED,"NONE","In-process attestation cannot establish an external sovereign act.")
 
 def effective_authority(transition, validation):
-    if transition.destination_state in S4_STATES and validation.status==ValidationStatus.VALID and validation.effective_authority=="AUTHORIZED":
-        return "AUTHORIZED"
     return "NONE"
