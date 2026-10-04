@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "record": {
+    "record_id": "stable unique identifier",
+    "kind": "system|component|capability|claim|implementation|test|test_run|score|artifact|relationship|gap|decision|observation|analysis",
+    "status": "NOT_MEASURED|UNRESOLVED|HYPOTHESIZED|INFERRED|OBSERVED|VERIFIED|QUALIFIED|SUPERSEDED",
+    "authority": "NONE|CANDIDATE|AUTHORIZED|RESTRICTED|REVOKED",
+    "created_at": "UTC timestamp",
+    "provenance": {
+      "source_system": "origin system",
+      "source_type": "repository|file|runtime|test|external|human",
+      "source_ref": "immutable or externally resolvable reference",
+      "source_version": "optional version",
+      "commit_sha": "optional commit",
+      "tree_sha": "optional tree",
+      "file_path": "optional path",
+      "file_sha256": "optional SHA-256",
+      "imported_at": "UTC timestamp",
+      "import_mode": "READ_ONLY|COPIED|GENERATED"
+    },
+    "data": "kind-specific structured payload",
+    "previous_hash": "hash-chain predecessor",
+    "record_hash": "SHA-256 of canonical record payload"
+  },
+  "rules": [
+    "missing input is not pass or fail",
+    "historical records are not rewritten",
+    "reconciliation findings do not mutate source evidence",
+    "qualification never implies authority",
+    "relationship analysis never creates authority",
+    "human decisions are not system-generated"
+  ]
+}
