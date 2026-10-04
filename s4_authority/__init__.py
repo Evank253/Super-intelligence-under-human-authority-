@@ -1,3 +1,2 @@
-"""Verify-only S4 channel. This package cannot originate a sovereign act."""
-from .authorization import AuthorizationPayload
+"""Verify-only S4 channel. No signing key. No witness write API."""
 from .verifier import AuthorizationVerdict, verify_authorization
