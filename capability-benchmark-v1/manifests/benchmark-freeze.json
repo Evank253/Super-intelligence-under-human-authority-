@@ -1,0 +1,33 @@
+{
+  "benchmark_version": "CB-v1.0",
+  "state": "BENCHMARK-FROZEN",
+  "freeze_basis": "140 frozen model-facing tasks; evaluator-only references separated",
+  "task_corpus_sha256": "154ccc0c09ea1daace67a8737d05598273c279b1b011cbce1b2d548f4e450930",
+  "task_manifest_sha256": "6bc8bf4cc899fb3406a35b8cdc7e383e5025a9ce2a8014cc8994b0c4c5851c17",
+  "scoring_rubric_sha256": "48afec898d271ac343431df4cb8a09450afb8964169175120195cc9dbd8ce0fd",
+  "protocol_sha256": "45848768cfd3e3cbc4181b337ffa3e466c88f5e777d3036ac3cfd27696231e9c",
+  "exclusion_rules_sha256": "e7ea50fc99ca61cc02d815217a63da93f47caf1bb1a9a9c3da66f9b180972fe3",
+  "task_count": 140,
+  "execution_started": false,
+  "capability_score": "NOT_MEASURED",
+  "capability_claim": "NOT_ESTABLISHED",
+  "model_facing_paths": [
+    "tasks/science.jsonl",
+    "tasks/engineering.jsonl",
+    "tasks/mathematics.jsonl",
+    "tasks/strategy.jsonl",
+    "tasks/creativity.jsonl",
+    "tasks/planning.jsonl",
+    "tasks/research.jsonl"
+  ],
+  "evaluator_only_paths": [
+    "reference/science.jsonl",
+    "reference/engineering.jsonl",
+    "reference/mathematics.jsonl",
+    "reference/strategy.jsonl",
+    "reference/creativity.jsonl",
+    "reference/planning.jsonl",
+    "reference/research.jsonl"
+  ],
+  "sealed_before_execution": true
+}
