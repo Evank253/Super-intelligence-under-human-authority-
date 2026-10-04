@@ -1,0 +1,95 @@
+name: Kronos EA-G2 isolated verification
+
+on:
+  push:
+    branches:
+      - kronos/ea-g2-6167544-verification
+  workflow_dispatch:
+
+jobs:
+  ea-g2:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout pinned EA-G2 commit
+        uses: actions/checkout@v4
+        with:
+          ref: 6167544d2fcccf5952e268766448ad01de6b22fc
+          fetch-depth: 0
+
+      - name: Establish provenance
+        id: provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "tree=$(git rev-parse HEAD^{tree})" >> "$GITHUB_OUTPUT"
+          python3 --version
+          uname -a
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test runner
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+
+      - name: Execute EA-G1 and EA-G2 suites
+        id: tests
+        shell: bash
+        run: |
+          set +e
+          python -m pytest tests/test_ea_g2_*.py tests/test_ea_g1_*.py -q 2>&1 | tee pytest-output.txt
+          rc=${PIPESTATUS[0]}
+          echo "exit_code=$rc" >> "$GITHUB_OUTPUT"
+          exit "$rc"
+
+      - name: Emit evidence record
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os, platform, subprocess
+          from pathlib import Path
+
+          def run(*args):
+              return subprocess.check_output(args, text=True).strip()
+
+          out = Path("pytest-output.txt")
+          evidence = {
+              "record_type": "KRONOS_ISOLATED_EXECUTION_EVIDENCE",
+              "generation": "EA-G2",
+              "target_commit": "6167544d2fcccf5952e268766448ad01de6b22fc",
+              "executed_commit": run("git", "rev-parse", "HEAD"),
+              "tree_hash": run("git", "rev-parse", "HEAD^{tree}"),
+              "environment": {
+                  "runner": os.environ.get("RUNNER_NAME"),
+                  "os": platform.platform(),
+                  "python": platform.python_version(),
+                  "architecture": platform.machine(),
+              },
+              "command": "python -m pytest tests/test_ea_g2_*.py tests/test_ea_g1_*.py -q",
+              "exit_code": int(os.environ.get("TEST_EXIT_CODE", "-1")),
+              "pytest_output": out.read_text() if out.exists() else "",
+              "qualification": "NOT_CLAIMED",
+              "human_authority_granted": False,
+              "evidence_scope": "implementation execution under this isolated runner only",
+          }
+          Path("kronos-ea-g2-evidence.json").write_text(json.dumps(evidence, indent=2) + "\n")
+          PY
+        env:
+          TEST_EXIT_CODE: ${{ steps.tests.outputs.exit_code }}
+
+      - name: Upload execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kronos-ea-g2-6167544-evidence
+          path: |
+            kronos-ea-g2-evidence.json
+            pytest-output.txt
+          if-no-files-found: error
