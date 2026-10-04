@@ -1,0 +1,21 @@
+name: ASI Qualification Harness
+on:
+  push:
+    branches: ["Python-3"]
+  pull_request:
+    branches: ["Python-3"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  harness-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run harness smoke test
+        run: python -m evaluation.smoke
+      - name: Compile evaluation modules
+        run: python -m compileall -q evaluation
