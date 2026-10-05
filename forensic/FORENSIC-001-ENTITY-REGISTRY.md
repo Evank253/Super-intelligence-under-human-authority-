@@ -561,3 +561,57 @@ No exact canonical blob match or independently supported historical lineage edge
 The absence of a located source artifact is not treated as proof that none exists.
 
 Classification remains **UNRESOLVED**.
+
+## 17. Pass 004 canonical-introduction comparison findings
+
+### F017 — CANONICAL AUTHORITY ARCHITECTURE INTRODUCTION WINDOW — ESTABLISHED
+
+The canonical authority/evidence architecture was introduced as distinct artifacts on 2026-10-01:
+
+- `b0549665c5d808ecbbcb7fb7c67f088ab9fb1c1e` — `architecture/capability-evidence-authority.md`
+- `ee18b2cce36420a6a1cc78d393a735ce833c2866` — `architecture/authority-boundaries.md`
+- `630f38f7a6f51294565f00ac781a770b84d8ec86` — `specifications/KSI-ASI-001.md`
+
+The capability registry was introduced separately on 2026-10-02:
+
+- `9ced9e7734d2ef9611594a262e23e603a939148e` — empty registry
+- `235ab94aa21d2430e9bf23bc9da2a528e19f73c2` — source-traceable capability records
+- `80b5d0b5762d744846b240c634b5a5e1f75f3148` — expanded source-traceable inventory
+
+This establishes the canonical introduction boundary precisely enough for artifact-to-artifact lineage testing.
+
+### F018 — KSI-ASI-001 ORIGINAL COMMIT CONTENT — ESTABLISHED
+
+The original KSI-ASI-001 commit adds a 33-line specification defining:
+
+- intelligence/evidence/authority separation;
+- forbidden promotion paths;
+- EVIDENCE REQUIRED / OPEN and NOT MEASURED states;
+- a proposed verification path ending in human ratification;
+- explicit statement that no transition is automatic.
+
+This content is present in the canonical repository from the introduction commit itself; it was not added retroactively by later qualification work.
+
+### F019 — CANONICAL/KSI CONCEPTUAL CORRESPONDENCE — NOT SUFFICIENT FOR IMPLEMENTATION LINEAGE
+
+The canonical October 1 artifacts and the historical KSI repository share broad architectural vocabulary such as constitution/control, safety, routing, capability, and authority-related concerns.
+
+However, the examined KSI source state has not yielded an exact blob match or independent source-reference record for these canonical artifacts.
+
+Therefore the relationship remains:
+
+**KSI historical implementation → canonical KSI-ASI authority architecture: UNRESOLVED**
+
+It is not promoted to ADAPTED_COPY, TRANSFORMED, or DERIVATIVE.
+
+### F020 — KCN REFERENCE EDGE IS DISTINCT FROM KSI IMPLEMENTATION DESCENT — ESTABLISHED
+
+The canonical capability registry explicitly references exact historical KCN artifacts by repository, path, and Git blob SHA. No equivalent source-reference record to the KSI repository was established for the October 1 authority artifacts.
+
+Therefore KCN has an established REFERENCE_ONLY edge, while KSI remains UNRESOLVED.
+
+### Pass 004 status
+
+**HISTORICAL ORIGIN RECOVERED; CANONICAL ARTIFACT LINEAGE PARTIALLY RESOLVED**
+
+The canonical introduction boundary is now identified. KCN reference lineage is established. KSI implementation lineage remains unresolved. This is the correct evidence state for proceeding to direct structural/content comparison of candidate historical KSI artifacts against the October 1 canonical artifacts.
