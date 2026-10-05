@@ -216,3 +216,55 @@ No relationship will be promoted solely because two repositories describe simila
 This pass successfully narrowed the question and exposed the principal remaining uncertainty: the manifest's named source commits may be provenance anchors, but they are not necessarily the historical commits from which every canonical artifact originated.
 
 That uncertainty is now explicitly recorded rather than silently resolved.
+
+# PASS 004 ADDENDUM — HISTORICAL COMMIT-TO-ARTIFACT TRACING
+
+## KSI implementation-origin recovery
+
+The previously examined KSI commit 45190320c2bc45362bbfdd9dfb1bac717814347a is the repository's README-only initial commit. It is therefore not the origin of the later KSI implementation.
+
+The KSI implementation was uploaded as a linear sequence beginning on 2026-06-22. Earliest recovered implementation commits include:
+
+- 15e15aa30c726a3f9ac3b4590af475e995d45d99 — README update
+- a48d041e603799853d13120777f72a59fd0fa400 — runtime.txt
+- 4b1fdd77d113d3684c3ad5c869d4c24e3293c933 — docker-compose.yml
+- 338def3a8b2cd5891bca2e0210d92f74df8d0cec — emergent integration
+- f99fd023ea7843bff61ecede0aa7c2847673c41c — capability matrix
+- 46669e9631facf87c5bf567aa441ce244c6ffdcc — key-rotation specification
+- faa9ae3e5fc5e540f2c2f6bd1d000d655800286c — root-control initialization
+- fc8e6ab17dcb6e6af27e9ccb003a068eabbf237c — constitution engine
+- 4031fc171f2c80380ccbd72c809fee84748a11aa — kernel router
+- 41e8bfe54da166ff45bd49ca1bcea5aa9ae5dddc — safety alignment engine
+- 146444cbd2cc9dd996f91925e761146011aa381a — architecture documentation
+
+The later anchored KSI head 91360e7e146f8b870098c30f0fed38ea484ba3a3 is only the terminal point of this initial upload history.
+
+No exact blob match from the KSI source tree to the canonical Python-3 tree was established, and repository-wide indexed searches did not establish an explicit canonical-source reference to the KSI repository. KSI implementation lineage therefore remains UNRESOLVED.
+
+Similar names such as constitution, root control, safety, router, and capability matrix are not sufficient to classify canonical KSI-ASI architecture as copied, adapted, transformed, or derivative.
+
+## Canonical architecture introduction boundary
+
+The canonical repository contains explicit authority/evidence separation artifacts, including specifications/KSI-ASI-001.md, architecture/authority-boundaries.md, architecture/capability-evidence-authority.md, and architecture/capability_registry.yaml.
+
+KSI-ASI-001 currently states VERIFICATION: NOT YET ESTABLISHED and defines forbidden promotion paths including confidence→evidence, confidence→authority, successful execution→authority, and qualification→human authorization.
+
+The canonical capability registry independently records exact KCN source artifact identities for KCN capabilities. This establishes explicit KCN REFERENCE_ONLY lineage, but does not establish KSI implementation descent.
+
+## Pass 004 classification boundary
+
+| Candidate lineage | Classification | Basis |
+|---|---|---|
+| KCN historical artifacts → canonical capability registry | REFERENCE_ONLY | Exact source repository/path/blob identities independently match the historical KCN tree and are explicitly recorded in the canonical registry |
+| KSI historical implementation → canonical implementation | UNRESOLVED | Historical implementation origin recovered, but no exact blob or independent source-reference edge established |
+| MANIFEX Engineering OS → canonical | UNRESOLVED | Historical capability-registry state recovered, but no exact blob or independent source-reference edge established |
+| MANIFEX Engineering → Evidence → canonical | UNRESOLVED | No sufficient artifact/history evidence established |
+| KCN-AGSI/ASI → KSI-ASI-001 | UNRESOLVED | Specific source artifact still not independently located |
+
+## New forensic conclusion
+
+Pass 004 demonstrates that historical source-state enumeration changes the evidentiary picture. It does not automatically produce lineage. It identifies the states at which lineage can now be tested.
+
+The next high-value operation is artifact-to-artifact comparison at the canonical introduction commit, especially for authority/evidence architecture and canonical files that explicitly reference historical source artifacts.
+
+UNRESOLVED remains the correct classification wherever that comparison cannot establish a supported lineage edge.
