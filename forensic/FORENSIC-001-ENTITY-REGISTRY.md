@@ -376,3 +376,87 @@ Pass 001 continues with:
 7. Only after identity reconciliation: transition to FORENSIC-001-CLAIM-REGISTRY.
 
 **Bottom line:** the repository/state distinction is now demonstrated by direct Git evidence, not merely a modeling preference. The KSI Benchmark and MANIFEX examples provide concrete predecessor/successor chains, while the canonical repository demonstrates multi-stage evolution through baseline → EA-G1 series → EA-G2/current.
+
+
+## 13. Artifact-level reconciliation pass
+
+This sub-pass compared the seven existing `legacy/` blobs in the forensic branch against the identified source-state trees.
+
+### Exact source-blob matches
+
+The following legacy artifacts have exact Git blob identity with the corresponding historical/current source state:
+
+| Legacy artifact | Source repository/state | Source path | Blob SHA | Relationship |
+|---|---|---|---|---|
+| `legacy/MANIFEX/manifex/build_index.py` | MANIFEX @ `e7660b8f...` | `manifex/build_index.py` | `ad0256cf...` | EXACT COPY |
+| `legacy/KSI-Benchmark-Suite/benchmark/grader.py` | KSI Benchmark @ `aef8a1ea...` | `benchmark/grader.py` | `72efce9c...` | EXACT COPY |
+| `legacy/KSI-Benchmark-Suite/mlops/replacement_policy.py` | KSI Benchmark @ `aef8a1ea...` | `mlops/replacement_policy.py` | `4c339b07...` | EXACT COPY |
+| `legacy/KSI-Benchmark-Suite/mlops/run_student_benchmark.py` | KSI Benchmark @ `aef8a1ea...` | `mlops/run_student_benchmark.py` | `d575188d...` | EXACT COPY |
+
+The same four source blobs are also present in the canonical repository's legacy paths, confirming preservation of those exact source artifacts.
+
+### Source-snapshot wrappers
+
+The following are **not exact blob copies** of their source README files:
+
+- `legacy/KCN/README.source.md`
+  - legacy blob: `f7eabeb2...`
+  - source KCN `README.md` blob at `cf8ca49...`: `285091cd...`
+- `legacy/KSI/README.source.md`
+  - legacy blob: `086ddafa...`
+  - source KSI `README.md` blob at `91360e7...`: `1220525a...`
+
+Direct content inspection shows both legacy files are provenance wrappers containing source metadata and then the source README content. They therefore represent **preserved source snapshots/wrappers**, not byte-identical copies of the original README blobs.
+
+The KCN wrapper explicitly records source repository, source branch, and source blob SHA `285091cd...`. The KSI wrapper explicitly records source repository, source branch, and source blob SHA `1220525a...`.
+
+### Negative result
+
+No exact blob match was found, among the identified twelve current/default source-state trees, for the following legacy wrapper blobs beyond their expected presence in the canonical repository itself:
+
+- KCN `README.source.md`
+- KSI `README.source.md`
+- canonical `legacy/README.md`
+
+This is a negative identity result only. It does not establish that the underlying source content is absent elsewhere.
+
+## 14. New artifact-reconciliation findings
+
+### F009 — EXACT-COPY-PROVENANCE — ESTABLISHED
+
+Four preserved legacy artifacts are cryptographically identical to files at their recorded historical source states:
+
+- MANIFEX `build_index.py`
+- KSI Benchmark `grader.py`
+- KSI Benchmark `replacement_policy.py`
+- KSI Benchmark `run_student_benchmark.py`
+
+This establishes exact artifact identity and source-state correspondence. It does **not** establish execution, correctness, verification, or qualification.
+
+### F010 — PROVENANCE-WRAPPER-DISTINCTION — ESTABLISHED
+
+KCN and KSI `README.source.md` artifacts are wrappers containing source metadata plus preserved README content. Their wrapper blob SHA is necessarily different from the source README blob SHA.
+
+Therefore file-name/content similarity alone must not be used as an exact-copy test.
+
+### F011 — CROSS-REPOSITORY-BLOB-CHECK — ESTABLISHED
+
+The exact-blob comparison across the twelve identified current/default source-state trees confirms that the four source-code legacy artifacts above map to their expected source repositories/states.
+
+No unexpected cross-repository exact-blob relationship was established in this limited seven-legacy-artifact corpus.
+
+## 15. Reconciliation boundary
+
+This artifact pass establishes **exact-copy relationships**, not complete provenance.
+
+Still required:
+
+1. Compare every relevant canonical `legacy/` artifact against all historical source states, not only the current/default states.
+2. Resolve whether any source files were renamed or transformed while retaining equivalent content.
+3. Expand blob comparison to every preserved import/archive artifact.
+4. Compare historical source-state trees against canonical imported trees.
+5. Construct explicit copy/import edges with source commit, source tree, source blob, destination path, and destination blob.
+6. Detect forks/derivatives using tree overlap and commit ancestry rather than names.
+7. Resolve the remaining repositories and historical commits in the recovery baseline.
+
+The identity graph therefore now contains both **state-level edges** and the first **artifact-level exact-copy edges**.
