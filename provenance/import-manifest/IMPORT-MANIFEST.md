@@ -33,3 +33,76 @@ This manifest is the controlled inventory of recoverable prior work.
 - MANIFEX-ENGINEERING-OS README blob SHA: `c94d160b8cb0eede4e23a58e8f55396e59c4972d`
 
 These hashes identify the retrieved source blobs; they do not certify the claims contained within them.
+
+
+## Tree-level reconciliation pass — 2026-10-05
+
+### Scope
+
+Compared the complete blob inventories of the canonical Python-3 head (`b7723bf5...`) against the identified source-state trees for the first reconciliation set. This is an artifact-identity comparison, not a semantic derivation proof.
+
+### Results
+
+| Source state | Source blobs | Exact blob matches in canonical head | Determination |
+|---|---:|---:|---|
+| MANIFEX @ `e7660b8f...` | 2 | 1 | Partial exact import established |
+| MANIFEX Engineering OS @ `c7a19803...` | 7 | 0 | No exact blob import established |
+| MANIFEX Engineering → Evidence @ `2b1e0ec5...` | 1 | 0 | No exact blob import established |
+| KSI Benchmark Suite @ `aef8a1ea...` | 17 | 3 | Partial exact import established |
+| KCN @ `cf8ca49...` | 208 | 0 | No exact blob import established |
+| KSI @ `91360e7...` | 66 | 0 | No exact blob import established |
+| KCN-AGSI/ASI @ `16c3da0...` | 1 | 0 | No exact blob import established |
+| KCN-II @ `5c63cdf...` | 121 | 0 | No exact blob import established |
+| Global Intelligence @ `754fb1f...` | 790 | 0 | No exact blob import established |
+
+### Confirmed exact import edges
+
+1. MANIFEX `manifex/build_index.py` → `legacy/MANIFEX/manifex/build_index.py`
+   - blob: `ad0256cf...`
+
+2. KSI Benchmark `benchmark/grader.py` → `legacy/KSI-Benchmark-Suite/benchmark/grader.py`
+   - blob: `72efce9c...`
+
+3. KSI Benchmark `mlops/replacement_policy.py` → `legacy/KSI-Benchmark-Suite/mlops/replacement_policy.py`
+   - blob: `4c339b07...`
+
+4. KSI Benchmark `mlops/run_student_benchmark.py` → `legacy/KSI-Benchmark-Suite/mlops/run_student_benchmark.py`
+   - blob: `d575188d...`
+
+### Important interpretation
+
+The canonical import manifest labels several source artifacts as `ADAPT`, even where the preserved legacy artifact is an exact blob copy. These are not contradictory:
+
+- **artifact identity:** exact copy;
+- **intended destination/action:** ADAPT;
+- **verification:** NOT MEASURED.
+
+The registry must preserve all three dimensions.
+
+For MANIFEX-ENGINEERING-OS and MANIFEX-ENGINEERING-TO-EVIDENCE, zero exact blob matches means only that no byte-identical source blob was found in the canonical current head. The manifest's `ADAPT` action may still have produced transformed/adapted descendants; semantic lineage remains unresolved.
+
+For KCN, KSI, KCN-AGSI/ASI, KCN-II, and Global Intelligence, zero exact blob matches likewise does **not** prove absence of lineage. It establishes only a negative result for exact Git blob identity against these particular source states.
+
+### New forensic findings
+
+**F012 — PARTIAL-TREE-IMPORT — ESTABLISHED**
+
+The canonical repository contains exact source-state artifacts from MANIFEX and KSI Benchmark Suite, but not complete source trees.
+
+**F013 — ZERO-BLOB-RESULT-IS-NOT-NO-LINEAGE — ESTABLISHED**
+
+A zero exact-blob match is a negative result for byte identity only. It cannot by itself distinguish ADAPTED, TRANSFORMED, REFERENCE_ONLY, DERIVATIVE, or NO_RELATIONSHIP_ESTABLISHED.
+
+**F014 — ACTION/IDENTITY SEPARATION — ESTABLISHED**
+
+The import manifest's intended action (`ADAPT`, `FREEZE / REVIEW`, etc.) is a separate provenance dimension from the artifact's actual cryptographic identity.
+
+### Remaining tree-reconciliation work
+
+1. Compare every historical import commit, not only the currently identified source state.
+2. Resolve renamed files using Git history and path changes.
+3. Compare transformed artifacts using structural/semantic evidence.
+4. Identify canonical documentation that explicitly references source repositories or artifacts.
+5. Reconcile the canonical `legacy/` directory against all historical import states.
+6. Establish derivative/fork relationships only where evidence supports them.
+7. Keep `UNRESOLVED` distinct from `NO_RELATIONSHIP_ESTABLISHED`.
