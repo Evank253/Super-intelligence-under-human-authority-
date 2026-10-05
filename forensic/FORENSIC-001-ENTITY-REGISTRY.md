@@ -460,3 +460,104 @@ Still required:
 7. Resolve the remaining repositories and historical commits in the recovery baseline.
 
 The identity graph therefore now contains both **state-level edges** and the first **artifact-level exact-copy edges**.
+
+
+## 16. Pass 004 lineage-tracing findings
+
+### R006 — KCN SOURCE-REFERENCE EDGE — ESTABLISHED
+
+The canonical capability registry contains explicit source-artifact references to four artifacts in the historical KCN Phase-1 architecture state:
+
+- KCN `intelligence/README.md`
+  - source commit: `cb1ddde4b94cce3868f620a5d6c12d958ed28fc1`
+  - source blob: `0bb6d5b8922c18a453e523d057e34e6337565d21`
+- KCN `backend/tests/test_intelligence.py`
+  - source blob: `0413f0e5184d4ba3c6892df54289af671eb385d1`
+- KCN `verification/README.md`
+  - source blob: `cbe78628a80c00c38f2153aae0c9122331849fcf`
+- KCN `ARCHITECTURE.md`
+  - source blob: `9bb6f67d5baabb8c0b46cd59c5b75bbd81394620`
+
+Those blob identities were independently recovered from the KCN historical tree at `cb1ddde4...`, whose commit message is `feat: complete Phase 1 foundation architecture scaffold`.
+
+The canonical registry entries were introduced on 2026-10-02 in canonical commits:
+
+- `235ab94aa21d2430e9bf23bc9da2a528e19f73c2` — register source-traceable capabilities
+- `80b5d0b5762d744846b240c634b5a5e1f75f3148` — expand source-traceable capability inventory
+
+This establishes a direct, cryptographically anchored **source-reference relationship** from canonical capability-registry records to exact historical KCN artifacts.
+
+Classification of the canonical registry relationship to those KCN artifacts:
+
+**REFERENCE_ONLY — ESTABLISHED**
+
+This does not establish that the registry is a copied or adapted implementation of those KCN files. It establishes that the canonical artifact intentionally records those exact KCN artifacts as evidence-bearing source references.
+
+### F015 — KCN HISTORICAL SOURCE-STATE RECOVERY — ESTABLISHED
+
+The relevant KCN architecture did not originate at the previously anchored September merge state.
+
+The earliest recovered commit containing `ARCHITECTURE.md` and the governance/intelligence/verification foundation is:
+
+`cb1ddde4b94cce3868f620a5d6c12d958ed28fc1`
+
+dated 2026-08-01.
+
+Its tree contains 153 blobs.
+
+Exact blob comparison against the canonical tree at the 2026-10-02 System-of-Systems architecture state found zero byte-identical blobs. However, the canonical capability registry independently records exact SHA-256 source identities for KCN artifacts from this historical state.
+
+Therefore:
+
+- exact source-reference lineage: ESTABLISHED;
+- exact code/file-copy lineage from KCN historical tree into canonical current tree: NOT ESTABLISHED;
+- adapted-copy lineage: NOT ESTABLISHED;
+- derivative lineage: NOT ESTABLISHED.
+
+### F016 — HISTORICAL-ANCHOR-WAS-INSUFFICIENT — ESTABLISHED
+
+The KCN source commit originally used as the forensic repository anchor (`cf8ca49...`) is not sufficient by itself to represent the earliest relevant source state.
+
+The historical architecture commit `cb1ddde4...` predates the September merge state and contains the exact KCN artifacts later referenced by canonical capability-registry evidence.
+
+This validates the Pass-003 hypothesis that a manifest source commit can be a provenance anchor without necessarily being the historical artifact-origin point.
+
+### R007 — KSI HISTORICAL ENUMERATION — PARTIAL / UNRESOLVED
+
+KSI README history shows an initial commit on 2026-06-22 followed by successive README updates and replacement-content commits before the anchored `91360e7...` state.
+
+No exact canonical blob match or explicit source-reference edge to the anchored KSI repository was established in this pass.
+
+The KSI → canonical relationship remains **UNRESOLVED**.
+
+### R008 — MANIFEX ENGINEERING OS HISTORICAL ENUMERATION — PARTIAL / UNRESOLVED
+
+The capability-registry/architecture state is anchored at:
+
+`c7a19803b732fc8fe8abf29a8f46daec869585a5`
+
+with parent `b5274a3896d42cc2e31fe7ffd2906e7ba1762f61`.
+
+The commit explicitly adds `MANIFEST/CORE-CAPABILITY-REGISTRY.md`.
+
+The source registry contains concepts overlapping the canonical capability/evidence/provenance architecture, including E0–E5, provenance ledger, evidence ledger, and capability inventory.
+
+No exact canonical blob match or independent source-reference edge to this MANIFEX Engineering OS artifact was established.
+
+Classification remains **UNRESOLVED**.
+
+### R009 — MANIFEX ENGINEERING → EVIDENCE — UNRESOLVED
+
+The examined source state `2b1e0ec...` is a one-file initial README commit.
+
+No exact canonical blob match or independent historical commit/reference edge was established.
+
+Classification remains **UNRESOLVED**.
+
+### R010 — KCN-AGSI/ASI — UNRESOLVED
+
+No exact canonical blob match or independently supported historical lineage edge for the specific `KSI-ASI-001` source artifact was established.
+
+The absence of a located source artifact is not treated as proof that none exists.
+
+Classification remains **UNRESOLVED**.
