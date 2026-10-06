@@ -1,0 +1,34 @@
+{
+  "qualification_id": "EIL-QUAL-001",
+  "implementation_id": "EIL-001-v0.2",
+  "criteria_registry": "EIL-QUALIFICATION-001-v1.0",
+  "criteria_registry_hash": "f1a19ef8128b23a909243024f67f7038846f03c53eb5e97945c798be03829c27",
+  "evaluation_status": "COMPLETE",
+  "gate_results": [
+    {"gate_id":"Q-001","result":"PASS","evidence_refs":["EIL-001 Constitutional Baseline v1.0","EIL-C-001..008 independent verification v0.2","v0.2 STATUS.md"]},
+    {"gate_id":"Q-002","result":"PASS","evidence_refs":["v0.2 REVISION-MANIFEST.json","v0.1 SHA-256","v0.1 independent verification report","C-004/C-006 findings analysis"]},
+    {"gate_id":"Q-003","result":"PASS","evidence_refs":["v0.2 REVISION-MANIFEST.json","v0.2 SHA-256"]},
+    {"gate_id":"Q-004","result":"PASS","evidence_refs":["v0.2 local test result: 30 passed","v0.2 tests/"]},
+    {"gate_id":"Q-005","result":"PASS","evidence_refs":["EIL-001 v0.2 Independent Re-Verification Report","EIL-C-001..008: 8 PASS / 0 FINDINGS"]},
+    {"gate_id":"Q-006","result":"PASS","evidence_refs":["C-004/C-006 findings analysis","v0.2 revision","v0.2 independent re-verification"]},
+    {"gate_id":"Q-007","result":"PASS","evidence_refs":["ImmutableEventStore hash-chain implementation","ADV-003","ADV-012","EIL-C-001","EIL-C-005","preserved v0.1 findings"]},
+    {"gate_id":"Q-008","result":"PASS","evidence_refs":["ADV-016","EIL-C-006","v0.2 runtime evidence boundary"]},
+    {"gate_id":"Q-009","result":"PASS","evidence_refs":["EIL-C-007","ADV-010","ADV-011","v0.2 STATUS.md: human ratification NOT ESTABLISHED"]},
+    {"gate_id":"Q-010","result":"PASS","evidence_refs":["EIL-QUALIFICATION-001-v1.0 frozen human-defined criteria snapshot","criteria registry hash","implementation does not control qualification registry"]}
+  ],
+  "findings": [],
+  "contradictory_evidence": [],
+  "provenance": [
+    {"artifact":"EIL-001-v0.1 implementation candidate","sha256":"f4f1e93db44fd1cb9c4834ba4973f7834e3972f832c547437627db7ab176f62b"},
+    {"artifact":"EIL-001-v0.2 implementation revision","sha256":"3b404c7bd9600689e9eb0f53d4f1a8c1fb16faa3853669395d38b428808cd78c"},
+    {"artifact":"EIL-001-v0.2 independent re-verification","sha256":"f06313f97fd7bd46052b43f2cac033ffca5215c36d5b712b5ce73e7c69bd1168"}
+  ],
+  "qualification_status": "QUALIFIED",
+  "human_ratification": "NOT_ESTABLISHED",
+  "authority_status": "HUMAN ONLY",
+  "limitations": [
+    "Qualification is limited to the frozen Q-001 through Q-010 criteria and the evidence explicitly bound to them.",
+    "Qualification does not establish production readiness, universal correctness, scientific truth, or authority.",
+    "Human ratification remains a separate, unresolved gate."
+  ]
+}
