@@ -131,3 +131,50 @@ This repository is a canonical architecture/integration foundation.
 **Verification claim ≠ human ratification.**
 
 No component should be labeled verified, qualified, canonical, or authorized without the corresponding evidence and governance record.
+
+## EIL-001 Epistemic Integrity Layer
+
+EIL-001 is the shared epistemic boundary for the system-of-systems architecture. It constrains epistemic state transitions without claiming independent truth authority.
+
+### Canonical v0.2 state
+
+- **Implementation:** EIL-001 v0.2
+- **Qualification:** **QUALIFIED** against frozen **EIL-QUALIFICATION-001 v1.0**
+- **Local tests:** 30/30 PASS
+- **Independent re-verification:** 8/8 PASS, 0 FINDINGS
+- **Qualification gates:** Q-001 through Q-010 — 10/10 PASS, 0 FINDINGS
+- **Human ratification:** **NOT ESTABLISHED**
+- **Authority:** **HUMAN ONLY**
+- **Qualification record:** immutable historical evidence
+
+**Qualification ≠ Ratification ≠ Authority.**
+
+Qualification characterizes the evaluated artifact against defined criteria. It does not confer authority over the artifact or authorize deployment, interpretation, or use.
+
+The immutable boundary is:
+
+**QUALIFIED → [EXTERNAL HUMAN DECISION] → HUMAN-RATIFIED**
+
+There is no automatic transition from qualification to authorization.
+
+The canonical machine-authorized claim is:
+
+> EIL-001 v0.2 is qualified against the frozen EIL-QUALIFICATION-001 v1.0 criteria, based on the explicitly bound evidence.
+
+This must not be converted into a claim of human-authoritative acceptance.
+
+### Qualification lineage
+
+**Frozen Constitutional Baseline → v0.1 Candidate → v0.2 Revision → 30/30 Local Tests → Independent Verification 8/8 → Qualification 10/10 → QUALIFIED → HUMAN RATIFICATION NOT ESTABLISHED**
+
+The v0.1 findings remain historical evidence. Corrections are represented by v0.2 and supported by independent re-verification. Qualification did not modify v0.2.
+
+### EIL records
+
+- [Canonical EIL-001 v0.2 state](governance/eil-001/CANONICAL-STATE.md)
+- [Qualification / ratification boundary](governance/eil-001/STATE-TRANSITION-BOUNDARY.md)
+- [Qualification state record](governance/eil-001/QUALIFICATION-STATE-v0.1.md)
+- [Qualification report](evidence/eil-001/qualification-v0.1/QUALIFICATION-REPORT.md)
+- [Qualification record](evidence/eil-001/qualification-v0.1/qualification-record.json)
+
+Future implementation changes, corrections, extensions, new evidence, criteria changes, or reinterpretations must be recorded as new revisions/events with their own provenance and evaluation. Historical qualification records must not be rewritten.
