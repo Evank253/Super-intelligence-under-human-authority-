@@ -1,0 +1,76 @@
+schema_version: "RB-001"
+registry_type: "locked-repository-blueprints"
+status: "LOCKED_BLUEPRINT"
+locked_on: "2026-10-07"
+
+purpose: >
+  Preserve the two-repository target architecture for the existing
+  Human-Authority System of Systems without replacing already-built
+  capabilities. These are architectural blueprints; implementation,
+  execution, verification, and qualification remain separately measured.
+
+blueprints:
+  - blueprint_id: "RB-A"
+    name: "Human-Authority Control & Assurance Repository"
+    repository: "Evank253/Super-intelligence-under-human-authority-"
+    branch: "Python-3"
+    role: "CONTROL_ASSURANCE"
+    document: "architecture/BLUEPRINT-A-HUMAN-AUTHORITY-CONTROL-PLANE.md"
+    status: "LOCKED_BLUEPRINT"
+    existing_registry_surfaces:
+      - "architecture/capability_registry.yaml"
+      - "architecture/system_registry.yaml"
+      - "architecture/cross_repository_ids.yaml"
+      - "provenance/import-manifest/"
+      - "evidence/"
+      - "verification/"
+      - "evaluation/"
+    governing_invariants:
+      - "Human Authority is external to software."
+      - "Constitutional Authority is external to software."
+      - "Capability != Authority."
+      - "Evidence != Authority."
+      - "Verification != Authority."
+      - "Qualification != Authority."
+      - "Self-authorization is prohibited."
+      - "S-Class artifacts are reused/recovered, not rebuilt."
+
+  - blueprint_id: "RB-B"
+    name: "KCN Ecosystem Composition Repository"
+    ecosystem: "KCN / Ketchum Cognitive Network"
+    role: "COGNITIVE_COMPOSITION"
+    document: "architecture/BLUEPRINT-B-KCN-ECOSYSTEM-COMPOSITION.md"
+    status: "LOCKED_BLUEPRINT"
+    controller_role: "SELECTIVE_CAPABILITY_ACTIVATION"
+    principle: "Expose and activate only the capabilities required for the current task and permitted by the control plane."
+    systems_in_scope:
+      - system: "KCN"
+        state: "EXISTING"
+      - system: "MANIFEX"
+        state: "EXISTING"
+      - system: "MANIFEX-X"
+        state: "RECOVERY_REQUIRED"
+      - system: "EIL"
+        state: "RECOVERY_REQUIRED"
+      - system: "KSI"
+        state: "EXISTING"
+      - system: "CYBER_SYSTEMS"
+        state: "EXISTING_SOURCE_SYSTEMS"
+      - system: "EVALUATION_ARENA"
+        state: "EXISTING"
+      - system: "WORLDVIEW_COMMAND"
+        state: "EXISTING_SOURCE_SYSTEMS"
+
+integration_rule:
+  - "Preserve original source repository."
+  - "Preserve exact source commit/tree when available."
+  - "Preserve artifact identity/hash when available."
+  - "Record integration separately from evidence."
+  - "Record evidence separately from verification."
+  - "Record qualification separately from authority."
+  - "Do not treat inaccessible source as nonexistent."
+  - "Do not rebuild a capability merely because its source has not yet been recovered."
+
+locked_composition:
+  flow: "TASK -> KCN CONTROLLER -> CAPABILITY SELECTION -> AUTHORIZATION -> SELECTIVE TOOL CALL -> EXECUTION -> EVIDENCE -> TEVV -> RESULT"
+  constraint: "The AI is not given unrestricted access to the entire ecosystem toolbox."
